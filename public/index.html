@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oil Price Dashboard</title>
+    <meta
+      name="description"
+      content="เว็บแสดงราคาน้ำมันจากบางจากและ PTT/OR พร้อมโครง deploy บน Fly.io"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Thailand Fuel Watch</p>
+          <h1>ราคาน้ำมันวันนี้</h1>
+          <p class="hero__text">
+            รวมข้อมูลจากบางจากและช่องทาง PTT/OR ที่ตั้งค่าไว้ ผ่าน API กลางของแอปเราเองเพื่อพร้อมใช้งานจริงและ deploy ได้ง่าย
+          </p>
+        </div>
+        <div class="hero__meta">
+          <div class="stat-card">
+            <span class="stat-card__label">อัปเดตล่าสุด</span>
+            <strong id="generatedAt">-</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__label">สถานะผู้ให้บริการ</span>
+            <strong id="providerSummary">-</strong>
+          </div>
+          <button class="refresh-button" id="refreshButton" type="button">รีเฟรชข้อมูล</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <div class="panel__header">
+            <h2>แหล่งข้อมูล</h2>
+            <p>หน้าเว็บนี้อ่านจาก `/api/prices` เท่านั้น เพื่อให้ frontend ไม่ต้องชน CORS กับ upstream โดยตรง</p>
+          </div>
+          <div id="providerGrid" class="provider-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="providerTemplate">
+      <article class="provider-card">
+        <div class="provider-card__head">
+          <div>
+            <p class="provider-card__eyebrow"></p>
+            <h3></h3>
+          </div>
+          <span class="badge"></span>
+        </div>
+        <p class="provider-card__note"></p>
+        <p class="provider-card__updated"></p>
+        <div class="price-table-wrap">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th>ชนิดน้ำมัน</th>
+                <th>วันนี้</th>
+                <th>พรุ่งนี้</th>
+                <th>ส่วนต่าง</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+  </html>
