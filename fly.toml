@@ -1,4 +1,4 @@
-app = "oil-gold-dashboard"
+app = "oilprice-th"
 primary_region = "sin"
 
 [build]
