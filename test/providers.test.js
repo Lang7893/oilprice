@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { normalizeNumber } = require("../src/providers/utils");
-const { _internal } = require("../src/providers/ptt");
+const { _internal } = require("../src/providers/gold");
 
 test("normalizeNumber handles empty and comma separated values", () => {
   assert.equal(normalizeNumber("1,234.50"), 1234.5);
@@ -9,39 +9,49 @@ test("normalizeNumber handles empty and comma separated values", () => {
   assert.equal(normalizeNumber(null), null);
 });
 
-test("mapJsonItems normalizes provider payloads into dashboard rows", () => {
-  const rows = _internal.mapJsonItems([
-    { name: "Blue Diesel", today: "31.94", tomorrow: "32.44", change: "0.50" }
-  ]);
+test("mapGoldRows normalizes gold trader payloads into dashboard rows", () => {
+  const rows = _internal.mapGoldRows({
+    seq: 3,
+    asTime: "2026-04-02T09:35:00",
+    bL_BuyPrice: 72300,
+    bL_SellPrice: 72500,
+    oM965_BuyPrice: 70857.84,
+    oM965_SellPrice: 73300,
+    oM9999_BuyPrice: 73427.76,
+    goldSpot: 4665,
+    bahtPerUSD: 32.77,
+    priceChangeFromPrevRow: -200,
+    priceChangeFromPrevDayLast: -400
+  });
 
   assert.deepEqual(rows, [
     {
-      name: "Blue Diesel",
-      unit: "บาท/ลิตร",
-      priceToday: 31.94,
-      priceTomorrow: 32.44,
-      delta: 0.5,
-      icon: null
-    }
-  ]);
-});
-
-test("parseHtmlTable extracts rows from simple price tables", () => {
-  const rows = _internal.parseHtmlTable(`
-    <table>
-      <tr><th>ชนิดน้ำมัน</th><th>วันนี้</th><th>พรุ่งนี้</th></tr>
-      <tr><td>Gasohol 95</td><td>42.25</td><td>42.75</td></tr>
-    </table>
-  `);
-
-  assert.deepEqual(rows, [
+      name: "ทองคำแท่ง 96.5%",
+      unit: "บาท/บาททองคำ",
+      primaryValue: 72300,
+      secondaryValue: 72500,
+      delta: -200
+    },
     {
-      name: "Gasohol 95",
-      unit: "บาท/ลิตร",
-      priceToday: 42.25,
-      priceTomorrow: 42.75,
-      delta: 0.5,
-      icon: null
+      name: "ทองรูปพรรณ 96.5%",
+      unit: "บาท/บาททองคำ",
+      primaryValue: 70857.84,
+      secondaryValue: 73300,
+      delta: -200
+    },
+    {
+      name: "ทองคำ 99.99%",
+      unit: "บาท/บาททองคำ",
+      primaryValue: 73427.76,
+      secondaryValue: 73427.76,
+      delta: -200
+    },
+    {
+      name: "Gold Spot / USDTHB",
+      unit: "USD/Oz | THB/USD",
+      primaryValue: 4665,
+      secondaryValue: 32.77,
+      delta: -400
     }
   ]);
 });

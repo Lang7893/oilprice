@@ -27,8 +27,6 @@ function getStatusLabel(status) {
   switch (status) {
     case "ok":
       return "พร้อมใช้งาน";
-    case "pending":
-      return "รอตั้งค่า";
     default:
       return "มีปัญหา";
   }
@@ -63,15 +61,21 @@ function renderProvider(provider) {
   const note = fragment.querySelector(".provider-card__note");
   const updated = fragment.querySelector(".provider-card__updated");
   const tbody = fragment.querySelector("tbody");
+  const primaryHeader = fragment.querySelector('[data-label="primary"]');
+  const secondaryHeader = fragment.querySelector('[data-label="secondary"]');
+  const deltaHeader = fragment.querySelector('[data-label="delta"]');
 
   eyebrow.textContent = provider.id.toUpperCase();
   title.textContent = provider.name;
   badge.textContent = getStatusLabel(provider.status);
-  badge.classList.add(`badge--${provider.status === "ok" ? "ok" : provider.status === "pending" ? "pending" : "error"}`);
+  badge.classList.add(`badge--${provider.status === "ok" ? "ok" : "error"}`);
   note.textContent = provider.note || "ไม่มีหมายเหตุ";
   updated.textContent = provider.sourceUrl
     ? `ต้นทาง: ${provider.sourceUrl}${provider.updatedAt ? ` | อัปเดต: ${provider.updatedAt}` : ""}`
     : provider.updatedAt || "ยังไม่มีข้อมูลอัปเดต";
+  primaryHeader.textContent = provider.fieldLabels?.primary || "ค่า 1";
+  secondaryHeader.textContent = provider.fieldLabels?.secondary || "ค่า 2";
+  deltaHeader.textContent = provider.fieldLabels?.delta || "ส่วนต่าง";
 
   if (!provider.items.length) {
     const empty = document.createElement("div");
@@ -85,8 +89,8 @@ function renderProvider(provider) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${item.name}</td>
-      <td><strong>${formatPrice(item.priceToday)}</strong></td>
-      <td><strong>${formatPrice(item.priceTomorrow)}</strong></td>
+      <td><strong>${formatPrice(item.primaryValue)}</strong></td>
+      <td><strong>${formatPrice(item.secondaryValue)}</strong></td>
       <td class="${getDeltaClass(item.delta)}">${getDeltaLabel(item.delta)}</td>
     `;
     tbody.appendChild(row);

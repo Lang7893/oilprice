@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Oil Price Dashboard</title>
+    <title>Oil & Gold Dashboard</title>
     <meta
       name="description"
-      content="เว็บแสดงราคาน้ำมันจากบางจากและ PTT/OR พร้อมโครง deploy บน Fly.io"
+      content="เว็บแสดงราคาน้ำมันจากบางจากและราคาทองคำจากสมาคมค้าทองคำ พร้อมโครง deploy บน Fly.io"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,10 +20,10 @@
     <div class="page-shell">
       <header class="hero">
         <div class="hero__copy">
-          <p class="eyebrow">Thailand Fuel Watch</p>
-          <h1>ราคาน้ำมันวันนี้</h1>
+          <p class="eyebrow">Thailand Market Watch</p>
+          <h1>ราคาน้ำมันและทองคำวันนี้</h1>
           <p class="hero__text">
-            รวมข้อมูลจากบางจากและช่องทาง PTT/OR ที่ตั้งค่าไว้ ผ่าน API กลางของแอปเราเองเพื่อพร้อมใช้งานจริงและ deploy ได้ง่าย
+            รวมข้อมูลจากบางจากและสมาคมค้าทองคำ ผ่าน API กลางของแอปเราเองเพื่อพร้อมใช้งานจริงและ deploy ได้ง่าย
           </p>
         </div>
         <div class="hero__meta">
@@ -65,10 +65,10 @@
           <table class="price-table">
             <thead>
               <tr>
-                <th>ชนิดน้ำมัน</th>
-                <th>วันนี้</th>
-                <th>พรุ่งนี้</th>
-                <th>ส่วนต่าง</th>
+                <th>รายการ</th>
+                <th data-label="primary">ค่า 1</th>
+                <th data-label="secondary">ค่า 2</th>
+                <th data-label="delta">ส่วนต่าง</th>
               </tr>
             </thead>
             <tbody></tbody>

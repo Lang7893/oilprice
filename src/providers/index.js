@@ -1,8 +1,8 @@
 const { getBangchakPrices } = require("./bangchak");
-const { getPttPrices } = require("./ptt");
+const { getGoldPrices } = require("./gold");
 
 async function getOilPrices() {
-  const providers = await Promise.all([getBangchakPrices(), getPttPrices()]);
+  const providers = await Promise.all([getBangchakPrices(), getGoldPrices()]);
   const availableProviders = providers.filter((provider) => provider.status === "ok").length;
 
   return {

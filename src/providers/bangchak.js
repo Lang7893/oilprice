@@ -15,11 +15,16 @@ async function getBangchakPrices() {
       sourceUrl: BANGCHAK_URL,
       updatedAt: record?.OilRemark2 || record?.OilDateNow || null,
       note: record?.OilRemark || null,
+      fieldLabels: {
+        primary: "วันนี้",
+        secondary: "พรุ่งนี้",
+        delta: "ส่วนต่าง"
+      },
       items: oils.map((item) => ({
         name: item.OilName || "Unknown",
         unit: "บาท/ลิตร",
-        priceToday: normalizeNumber(item.PriceToday),
-        priceTomorrow: normalizeNumber(item.PriceTomorrow),
+        primaryValue: normalizeNumber(item.PriceToday),
+        secondaryValue: normalizeNumber(item.PriceTomorrow),
         delta: normalizeNumber(item.PriceDifTomorrow),
         icon: item.IconWeb3 || item.Icon || null
       }))
@@ -32,6 +37,11 @@ async function getBangchakPrices() {
       sourceUrl: BANGCHAK_URL,
       updatedAt: null,
       note: error instanceof Error ? error.message : "Unknown error",
+      fieldLabels: {
+        primary: "วันนี้",
+        secondary: "พรุ่งนี้",
+        delta: "ส่วนต่าง"
+      },
       items: []
     };
   }

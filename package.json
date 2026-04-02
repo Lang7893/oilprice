@@ -1,8 +1,8 @@
 {
-  "name": "oilprice-dashboard",
+  "name": "oil-gold-dashboard",
   "version": "1.0.0",
   "private": true,
-  "description": "Retail oil price dashboard using Bangchak and PTT sources, ready for Fly.io deployment.",
+  "description": "Retail oil and gold price dashboard using Bangchak and Gold Traders sources, ready for Fly.io deployment.",
   "engines": {
     "node": ">=20"
   },
